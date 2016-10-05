@@ -41,7 +41,7 @@
 
 				$(".loader").show();
 				$('#show-results').empty();
-				var myDataVar = { allChecks : $('#checkDetails').val()};
+				var myDataVar = { allChecks : $('#checkDetails').val(),mySilo : $('#pickSilo').val()};
 				var saveData = $.ajax({
 					type: "POST",
 					url: "resources/handler/getChecks.php",
@@ -86,6 +86,9 @@
 
 				</div>
 				<div class="container">
+				<div class="pull-left">
+						<select id="pickSilo" class="form-control"><option value="">Silo #1</option><option value="2">Silo #2</option><option value="3">Silo #3</option><option value="4">Silo #4</option></select>
+					</div>
 					<div class="btn-group pull-right">
 						<button type="button" id="fetchChecks" class="btn btn-lg btn-success">Fetch</button>
 					</div>

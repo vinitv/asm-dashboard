@@ -1,5 +1,5 @@
 body {
-	font-size: 12px;
+	font-size: 1em;
 }
 h1{
 	font-size: 18px;
@@ -24,4 +24,9 @@ h2{
 	height: 100%;
 	z-index: 9999;
 	background: url('../img/pie.gif') 50% 50% no-repeat rgb(249,249,249);
+}
+
+select#pickSilo {
+    margin-left: -15px;
+    width: 70px;
 }

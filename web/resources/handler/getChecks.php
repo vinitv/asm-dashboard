@@ -3,9 +3,9 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 0);
 
-function getChecks($id, $accountName){		
+function getChecks($id, $accountName, $currentSilo){		
 
-	$url="https://api-wpm.apicasystem.com/v3/checks/?auth_ticket=".$id;
+	$url="https://api-wpm".$currentSilo.".apicasystem.com/v3/checks/?auth_ticket=".$id;
 	$ch = curl_init();
 	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -55,11 +55,12 @@ return $output;
 }
 
 $allChecks = $_POST['allChecks'];
+$currentSilo = $_POST['mySilo'];
 $allChecks = preg_replace('/\s+/', '', $allChecks);
 $result = array();
 foreach (explode(',',$allChecks) as $sub){
 	$subAry = explode(':',$sub);
-	echo getChecks($subAry[0],$subAry[1]);
+	echo getChecks($subAry[0],$subAry[1],$currentSilo);
 }
 
 
