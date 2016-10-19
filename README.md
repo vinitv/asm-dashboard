@@ -1,3 +1,18 @@
+NOTE: This is an unofficial app and all related issues should be reported directly here on GIT. Please DO NOT contact Apica's Support.
+
+##Core Files
+```sh
+[/web/index.php](https://github.com/vinitv/asm-dashboard/blob/master/web/index.php)
+[/web/resources/*](https://github.com/vinitv/asm-dashboard/tree/master/web/resources)
+
+```
+##Link- [http://pacific-woodland-10123.herokuapp.com/](http://pacific-woodland-10123.herokuapp.com/)
+
+Any commits on master will auto deploy on heroku
+
+
+*****
+
 # php-getting-started
 
 A barebones PHP app that makes use of the [Silex](http://silex.sensiolabs.org/) web framework, which can easily be deployed to Heroku.
