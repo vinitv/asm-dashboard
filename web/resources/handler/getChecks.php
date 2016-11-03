@@ -5,7 +5,7 @@ ini_set('display_errors', 0);
 
 function getChecks($id, $accountName, $currentSilo){		
 
-	$url="https://api-wpm".$currentSilo.".apicasystem.com/v3/checks/?auth_ticket=".$id;
+	$url="https://api-wpm".$currentSilo.".apicasystem.com/v3/checks/?auth_ticket=".$id."&customer_context=1";
 	$ch = curl_init();
 	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
