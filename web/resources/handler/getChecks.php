@@ -17,12 +17,18 @@ function getChecks($id, $accountName, $currentSilo){
 $json_array = json_decode($result,true); // convert to object array
 $output="<h2>".$accountName."</h2><table class='table table-bordered mychecks' width='100%''><thead><tr><th>ID</th><th>Name</th><th>Location</th><th><i class='fa fa-desktop' aria-hidden='true'></i></th><th>Details</th><th></th></tr></thead><tbody>";
 
+$ctFatal=0;
+$ctError=0;
+$ctWarning=0;
+$ctInfo=0;
+
 foreach($json_array as $json){
 
 	$statusColor="alert alert-success";
-	if(strpos($json['severity'],'F')!==false){$statusColor="alert alert-danger";}
-	if(strpos($json['severity'],'W')!==false){$statusColor="alert alert-warning";}
-	if(strpos($json['severity'],'E')!==false){$statusColor="alert alert-error";}
+	if(strpos($json['severity'],'F')!==false){$statusColor="alert alert-danger";$ctFatal++;}
+	elseif(strpos($json['severity'],'W')!==false){$statusColor="alert alert-warning";$ctWarning++;}
+	elseif(strpos($json['severity'],'E')!==false){$statusColor="alert alert-error";$ctError++;}
+	else{$ctInfo++;}
 
 	$checkTypename="<i title='".$json['check_type_name']."' data-toggle='tooltip'  class='fa fa-internet-explorer' aria-hidden='true'></i>";
 
@@ -48,7 +54,7 @@ foreach($json_array as $json){
 	$output.="<tr class='".$statusColor."'><td><a target='_blank' href='https://wpm.apicasystem.com/Check/Details/".$json['id']."'>".$json['id']."</a></td><td>".$json['name']."</td><td>".$json['location']."</td><td>".$checkTypename."</td><td>".$json['url']." | ".$json['check_type_name']." | ".$json['severity']."</td><td>".$checkSeverity."</td></tr>";
 }
 
-$output.="	</tbody></table>";
+$output.="	</tbody></table><br/><div class='all-stats'><p class='alert alert-success'>Info: ".$ctInfo."</p></div><div class='all-stats'><p class='alert alert-warning'>Warning: ".$ctWarning."</p></div><div class='all-stats'><p class='alert alert-error'>Error: ".$ctError."</p></div><div class='all-stats'><p class='alert alert-danger'>Fatal: ".$ctFatal."</p></div>";
 
 return $output;
 

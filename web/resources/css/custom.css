@@ -30,3 +30,9 @@ select#pickSilo {
     margin-left: -15px;
     width: 100px;
 }
+
+.all-stats {
+    width: 150px;
+    float: left;
+    margin-right: 15px;
+}
