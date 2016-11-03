@@ -51,6 +51,7 @@
 						$('#show-results').append(resultData);
 						$(".loader").fadeOut("slow");
 						startTables();
+						startExport();
 					}
 				});
 
@@ -114,4 +115,14 @@
 
 
 	</body>
+	<script type="text/javascript" src="resources/js/filesaver.min.js"></script>
+	<script type="text/javascript" src="resources/js/tableexport.min.js"></script>
+	<script type="text/javascript">
+
+	function startExport(){
+	$(".mychecks").tableExport({
+	    bootstrap: true
+	});
+	}
+	</script>
 	</html>
