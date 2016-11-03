@@ -15,7 +15,7 @@ function getChecks($id, $accountName, $currentSilo){
 
 //var_dump(json_decode($result, true));
 $json_array = json_decode($result,true); // convert to object array
-$output="<h2>".$accountName."</h2><table class='table table-bordered mychecks' width='100%''><thead><tr><th>ID</th><th>Name</th><th>Location</th><th><i class='fa fa-desktop' aria-hidden='true'></i></th><th>Details</th><th></th></tr></thead><tbody>";
+$output="<h2>".$accountName."</h2><table class='table table-bordered mychecks' width='100%''><thead><tr><th>CID</th><th>Name</th><th>Location</th><th>Type</th><th>Details</th><th>.</th></tr></thead><tbody>";
 
 $ctFatal=0;
 $ctError=0;
@@ -54,7 +54,7 @@ foreach($json_array as $json){
 	$output.="<tr class='".$statusColor."'><td><a target='_blank' href='https://wpm.apicasystem.com/Check/Details/".$json['id']."'>".$json['id']."</a></td><td>".$json['name']."</td><td>".$json['location']."</td><td>".$checkTypename."</td><td>".$json['url']." | ".$json['check_type_name']." | ".$json['severity']."</td><td>".$checkSeverity."</td></tr>";
 }
 
-$output.="	</tbody></table><br/><div class='all-stats'><p class='alert alert-success'>Info: ".$ctInfo."</p></div><div class='all-stats'><p class='alert alert-warning'>Warning: ".$ctWarning."</p></div><div class='all-stats'><p class='alert alert-error'>Error: ".$ctError."</p></div><div class='all-stats'><p class='alert alert-danger'>Fatal: ".$ctFatal."</p></div>";
+$output.="	</tbody></table><br/><div class='row'><div class='all-stats'><p class='alert alert-success'>Info: ".$ctInfo."</p></div><div class='all-stats'><p class='alert alert-warning'>Warning: ".$ctWarning."</p></div><div class='all-stats'><p class='alert alert-error'>Error: ".$ctError."</p></div><div class='all-stats'><p class='alert alert-danger'>Fatal: ".$ctFatal."</p></div></div><br/>";
 
 return $output;
 

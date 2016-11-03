@@ -32,7 +32,9 @@ select#pickSilo {
 }
 
 .all-stats {
-    width: 150px;
+    width: 105px;
     float: left;
     margin-right: 15px;
+    height:80px;
+        margin-left: 15px;
 }
