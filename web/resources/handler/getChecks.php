@@ -13,22 +13,31 @@ function getChecks($id, $accountName, $currentSilo){
 	$result=curl_exec($ch);
 	curl_close($ch);
 
-//var_dump(json_decode($result, true));
+	//var_dump(json_decode($result, true));
 $json_array = json_decode($result,true); // convert to object array
-$output="<h2>".$accountName."</h2><table class='table table-bordered mychecks' width='100%''><thead><tr><th>CID</th><th>Name</th><th>Location</th><th>Type</th><th>Details</th><th>.</th></tr></thead><tbody>";
+$output="<h2>".$accountName."</h2><table class='table table-bordered mychecks' width='100%''><thead><tr><th>CID</th><th>Name</th><th>Location</th><th>Type</th><th>Details</th><th>--</th></tr></thead><tbody>";
 
 $ctFatal=0;
 $ctError=0;
 $ctWarning=0;
 $ctInfo=0;
+$ctDisabled=0;
 
 foreach($json_array as $json){
 
 	$statusColor="alert alert-success";
-	if(strpos($json['severity'],'F')!==false){$statusColor="alert alert-danger";$ctFatal++;}
-	elseif(strpos($json['severity'],'W')!==false){$statusColor="alert alert-warning";$ctWarning++;}
-	elseif(strpos($json['severity'],'E')!==false){$statusColor="alert alert-error";$ctError++;}
-	else{$ctInfo++;}
+
+	if($json['enabled']!=false){
+
+		if(strpos($json['severity'],'F')!==false){$statusColor="alert alert-danger";$ctFatal++;}
+		elseif(strpos($json['severity'],'W')!==false){$statusColor="alert alert-warning";$ctWarning++;}
+		elseif(strpos($json['severity'],'E')!==false){$statusColor="alert alert-error";$ctError++;}
+		else{$ctInfo++;}
+
+	}else{
+		$ctDisabled++;
+
+	}
 
 	$checkTypename="<i title='".$json['check_type_name']."' data-toggle='tooltip'  class='fa fa-internet-explorer' aria-hidden='true'></i>";
 
@@ -51,10 +60,16 @@ foreach($json_array as $json){
 		$checkSeverity="25";
 	}else{$checkSeverity="0";}	
 
-	$output.="<tr class='".$statusColor."'><td><a target='_blank' href='https://wpm.apicasystem.com/Check/Details/".$json['id']."'>".$json['id']."</a></td><td>".$json['name']."</td><td>".$json['location']."</td><td>".$checkTypename."</td><td>".$json['url']." | ".$json['check_type_name']." | ".$json['severity']."</td><td>".$checkSeverity."</td></tr>";
+	if($json['enabled']==false){
+		$enabled="Disabled";
+	}
+	else{$enabled="Enabled";
 }
 
-$output.="	</tbody></table><br/><div class='row'><div class='all-stats'><p class='alert alert-success'>Info: ".$ctInfo."</p></div><div class='all-stats'><p class='alert alert-warning'>Warning: ".$ctWarning."</p></div><div class='all-stats'><p class='alert alert-error'>Error: ".$ctError."</p></div><div class='all-stats'><p class='alert alert-danger'>Fatal: ".$ctFatal."</p></div></div><br/>";
+$output.="<tr class='".$statusColor."'><td><a target='_blank' href='https://wpm.apicasystem.com/Check/Details/".$json['id']."'>".$json['id']."</a></td><td>".$json['name']."</td><td>".$json['location']."</td><td>".$checkTypename."</td><td>".$json['url']." | ".$json['check_type_name']." | ".$json['severity']." | ".$enabled."</td><td>".$checkSeverity."</td></tr>";
+}
+
+$output.="	</tbody></table><br/><div class='row'><div class='all-stats'><p class='alert alert-success'>Info: ".$ctInfo."</p></div><div class='all-stats'><p class='alert alert-warning'>Warning: ".$ctWarning."</p></div><div class='all-stats'><p class='alert alert-error'>Error: ".$ctError."</p></div><div class='all-stats'><p class='alert alert-danger'>Fatal: ".$ctFatal."</p></div><div class='all-stats'><p class='alert alert-disabled'>Disabled: ".$ctDisabled."</p></div></div><br/>";
 
 return $output;
 

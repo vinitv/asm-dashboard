@@ -38,3 +38,9 @@ select#pickSilo {
     height:80px;
         margin-left: 15px;
 }
+
+.alert-disabled {
+	color: rgba(81, 1, 31, 0.87);
+    background-color: rgba(36, 30, 33, 0.22);
+    border-color: rgba(86, 86, 86, 0.29);
+}
