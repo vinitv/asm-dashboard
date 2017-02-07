@@ -12,6 +12,10 @@ function getChecks($allChecks1,$allChecks2,$cnt){
 	$json_array1 = json_decode($result1,true);
 	$json_array2 = json_decode($result2,true); // convert to object array
 
+$json_array1=array_reverse($json_array1);
+$json_array2=array_reverse($json_array2);
+
+
 	$myarray = array();
 
 
